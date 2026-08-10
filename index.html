@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grid-Forming Inverter Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <p class="eyebrow">Power electronics / control systems</p>
+        <h1>Grid-Forming Inverter Lab</h1>
+        <p>Start an islanded microgrid, synchronize a second inverter, and see how both respond to disturbances.</p>
+      </div>
+      <a class="export" id="export" download="microgrid-trace.csv">Download CSV</a>
+    </header>
+    <form id="controls">
+      <label for="scenario">Scenario
+        <select id="scenario"></select>
+      </label>
+      <label class="toggle"><input type="checkbox" id="baseline"> Compare forced breaker closure</label>
+    </form>
+    <section aria-label="Simulation metrics" id="metrics" class="metrics"></section>
+    <div class="workspace">
+      <section aria-labelledby="traces">
+        <div class="trace-heading">
+          <h2 id="traces">Waveforms</h2>
+          <output id="time-label" for="time"></output>
+        </div>
+        <label class="sr-only" for="time">Inspect simulation time</label>
+        <input id="time" type="range" min="0" value="0" step="0.01">
+        <div id="plots"></div>
+      </section>
+      <aside>
+        <section aria-labelledby="state-title">
+          <h2 id="state-title">Microgrid state</h2>
+          <div class="schematic">
+            <div><span class="node">A</span><span class="wire"></span><span class="bus">AC bus</span><span class="wire" id="breaker"></span><span class="node" id="node-b">B</span></div>
+            <p id="state"></p>
+          </div>
+        </section>
+        <section aria-labelledby="events-title">
+          <h2 id="events-title">Event log</h2>
+          <ol id="events"></ol>
+        </section>
+        <section aria-labelledby="sync-title">
+          <h2 id="sync-title">Breaker closure</h2>
+          <p class="details">B closes after phase, voltage, and frequency differences stay within limits for 250 ms.</p>
+          <div id="closures"></div>
+        </section>
+      </aside>
+    </div>
+    <footer>Balanced AC phasor model · 60 Hz nominal · 2 ms simulation step · current in per unit of inverter rating</footer>
+  </main>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>
